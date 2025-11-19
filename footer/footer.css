@@ -1,0 +1,56 @@
+/* --- FOOTER DARK MODE PROFESSIONAL --- */
+.site-footer {
+    /* (MỚI) Nền tối chuyên nghiệp */
+    background: rgba(22,27,34,0.9); 
+    color: #ecf0f1; /* Chữ sáng chung */
+    padding: 16px 30px; /* Vừa phải */
+    font-family: 'Inter', sans-serif, Arial;
+    /* (MỚI) Đường viền nhấn TEAL */
+    border-top: 4px solid #1abc9c; 
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap; 
+    gap: 15px; 
+}
+
+/* --- COPYRIGHT (Bên trái) --- */
+.site-footer p {
+    margin: 0;
+    font-size: 0.8rem;
+    /* (MỚI) Màu xám mờ hơn, dễ đọc trên nền tối */
+    color: #95a5a6; 
+}
+
+/* --- LIÊN KẾT (Bên phải) --- */
+.footer-links {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.footer-links a {
+    /* (MỚI) Màu nhấn Teal (Primary Accent) */
+    color: #1abc9c; 
+    text-decoration: none;
+    font-size: 0.9rem; 
+    font-weight: 500;
+    
+    /* (MỚI) Đường phân cách mờ tối */
+    border-left: 1px solid #34495e; 
+    padding: 0 10px;
+    transition: color 0.2s ease;
+}
+
+/* (MỚI) Link đầu tiên không có đường phân cách */
+.footer-links a:first-child {
+    border-left: none;
+    padding-left: 0;
+}
+
+.footer-links a:hover {
+    /* (MỚI) Chuyển sang màu trắng sáng hơn khi hover */
+    color: white; 
+    text-decoration: none; 
+}

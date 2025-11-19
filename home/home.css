@@ -1,0 +1,246 @@
+:root {
+  --primary: #00bfa6; --secondary: #1a3e6f; --accent: #ff4081;
+  --light-bg: #f5f6fa; --dark-bg: #0d1117;
+  --text-light: #333; --text-dark: #f5f5f5;
+  --radius: 24px; --shadow: 0 8px 32px rgba(0,0,0,0.1);
+  --shadow-hover: 0 20px 60px rgba(0,191,166,0.3);
+}
+
+/* === Dark Mode === */
+body.dark { background: var(--dark-bg); color: var(--text-dark); }
+body.dark .navbar { background: rgba(22,27,34,0.9); backdrop-filter: blur(15px); }
+body.dark .navbar .navbar-brand,
+body.dark .navbar .btn-outline-secondary { color: var(--text-dark); }
+body.dark .feature-card { background: rgba(31,41,55,0.9); color: #e5e7eb; border: 1px solid rgba(0,191,166,0.2); }
+
+/* === Global === */
+body { font-family: 'Inter', sans-serif; background: var(--light-bg); margin: 0; transition: 0.4s; overflow-x: hidden; }
+
+/* === Navbar === */
+.navbar { background: rgba(255,255,255,0.9); backdrop-filter: blur(15px); box-shadow: var(--shadow); position: fixed; top:0; width:100%; z-index:999; }
+.navbar-brand { font-weight:700; color: var(--secondary); }
+.navbar .btn { border-radius: var(--radius); font-weight:600; }
+.navbar .btn-login { background: var(--primary); color:white; }
+.navbar .btn-login:hover { background: #00a890; box-shadow: var(--shadow-hover); }
+.toggle-dark { background:transparent; border:none; font-size:1.2rem; color:var(--secondary); cursor:pointer; transition: transform 0.3s; }
+.toggle-dark:hover { transform: rotate(20deg); }
+body.dark .toggle-dark { color: var(--primary); }
+
+/* === Hero Section === */
+.hero { min-height: 100vh; display:flex; flex-direction:column; justify-content:center; align-items:center; text-align:center;
+  background: linear-gradient(135deg, var(--primary), var(--secondary), var(--accent)); background-size:400% 400%; 
+  animation: gradientBG 15s ease infinite; color:white; padding:2rem; position:relative; overflow:hidden;
+}
+body.dark .hero { background: linear-gradient(135deg,#0d1117,#1a3e6f,#ff4081); }
+@keyframes gradientBG { 0%{background-position:0% 50%;} 50%{background-position:100% 50%;} 100%{background-position:0% 50%;} }
+.hero::before { content:''; position:absolute; width:200%; height:200%; background:radial-gradient(circle at 50% 50%, rgba(255,255,255,0.2), transparent 60%); animation:pulse 6s infinite ease-in-out; }
+@keyframes pulse { 0%,100%{transform:scale(1);opacity:0.6;} 50%{transform:scale(1.2);opacity:1;} }
+.hero-content { display:flex; flex-direction: column; align-items:center; gap:2rem; z-index:1; }
+@media(min-width:992px){ .hero-content{ flex-direction:row; justify-content:center; text-align:left; } }
+.hero-text { max-width:500px; transition: transform 0.3s ease; }
+.hero-video video { border-radius: var(--radius); box-shadow: var(--shadow-hover); max-width:500px; width:100%; height:auto; animation:videoScale 2s ease-out; transition: transform 0.3s ease; }
+@keyframes videoScale { from { transform: scale(0.8); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+.hero-video:hover video { transform: scale(1.05); }
+.hero h1{ font-size:3rem; font-weight:700; text-shadow:0 4px 8px rgba(0,0,0,0.5); }
+.hero p{ max-width:600px; font-size:1.2rem; margin:1rem 0 2rem; }
+.hero .btn{ background:white; color:var(--secondary); font-weight:600; border-radius:var(--radius); padding:0.75rem 2rem; transition:0.3s; box-shadow: var(--shadow); }
+.hero .btn:hover{ background:#f0f0f0; transform:translateY(-3px); box-shadow: var(--shadow-hover); }
+
+/* === Swiper Feature Section === */
+.swiper { width: 100%; padding: 4rem 0; cursor: grab; }
+.swiper-slide { width: 300px; display:flex; justify-content:center; align-items:center; }
+.feature-card { 
+  display:flex; flex-direction:column; align-items:center; justify-content:flex-start;
+  background: rgba(255,255,255,0.5); backdrop-filter: blur(12px); border-radius: var(--radius);
+  padding:2rem; 
+  min-height:400px; /* ✅ FIX 1: Tăng chiều cao tối thiểu cho Desktop/Tablet lớn để ngăn cắt thẻ */
+  text-align:center; box-shadow:0 12px 28px rgba(0,0,0,0.08); 
+  border:1px solid rgba(255,255,255,0.3); transition: transform 0.3s ease, box-shadow 0.2s ease-out;
+}
+.feature-card .icon-wrapper { width:80px; height:80px; border-radius:50%; background:var(--primary); display:flex; justify-content:center; align-items:center; color:white; font-size:2rem; }
+.feature-card:hover .icon-wrapper { background:var(--secondary); transform:scale(1.1); }
+.feature-card h5 { font-weight:600; margin-top:1rem; color:var(--secondary); }
+.feature-card p { font-size:0.95rem; margin:1rem 0 1.5rem; color:#444; }
+body.dark .feature-card h5 { color: var(--primary); }
+body.dark .feature-card p { color:#ccc; }
+.swiper-slide-active .feature-card { transform: scale(1.08); }
+/* ✅ KHẮC PHỤC LỆCH: Đảm bảo tiêu đề luôn căn giữa */
+#features h2 {
+    text-align: center !important; 
+}
+
+
+/* === Launch Section === */
+.launch-section { position:relative; width:100%; height:115vh; overflow:hidden; display:flex; align-items:center; justify-content:center; color:white; opacity:0; transform:translateY(50px) scale(0.95); transition: all 1.5s ease-out; }
+.launch-video { position:absolute; top:0; left:0; width:100%; height:100%; object-fit:cover; filter:brightness(0.5) contrast(1.1) saturate(1.2); transition: transform 10s ease; }
+.launch-section:hover .launch-video { transform:scale(1.05); }
+.launch-overlay { position:relative; z-index:2; text-align:center; max-width:700px; padding:2rem; }
+.launch-overlay h2 { font-size:3rem; font-weight:700; margin-bottom:1rem; text-shadow:0 4px 20px rgba(0,0,0,0.6); }
+.launch-overlay p { font-size:1.2rem; text-shadow:0 2px 10px rgba(0,0,0,0.5); }
+.launch-overlay .btn { background: var(--primary); color:white; border:none; border-radius:var(--radius); box-shadow: var(--shadow); transition:all 0.3s ease; }
+.launch-overlay .btn:hover { background:#00a890; transform:translateY(-3px); box-shadow: var(--shadow-hover); }
+
+
+/* === Welcome text hiện đại, nổi bật, gradient chữ === */
+.welcome-text {
+    font-weight: 900;
+    font-size: 1.10rem;
+    padding: 0;
+    border-radius: 0;
+    background: none;
+    color: #2e89cf;
+    background-image: linear-gradient(90deg, #2e89cf, #ff4b5c);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    transition: all 0.35s ease;
+}
+
+.welcome-text:hover {
+    background-image: linear-gradient(90deg, #ff4b5c, #fcd34d);
+    transform: translateY(-3px) scale(1.07);
+    -webkit-text-fill-color: transparent;
+    text-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+
+/* === Logout button đơn giản, đỏ chuẩn === */
+.btn-outline-secondary2 {
+    background: #cb2121;
+    color: #fff;
+    font-weight: 700;
+    font-size: 1rem;
+    padding: 0.4rem 1.3rem;
+    border-radius: 12px;
+    border: none;
+    box-shadow: 0 4px 12px rgba(255, 0, 0, 0.25);
+    transition: all 0.25s ease;
+}
+
+/* Hover effect nhẹ */
+.btn-outline-secondary2:hover {
+    background: #de1717;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(151, 13, 13, 0.35);
+}
+/* ================================================= */
+/* === RESPONSIVE DESIGN: TABLET & MOBILE BREAKPOINTS === */
+/* ================================================= */
+
+/* --- TABLET (max-width: 991px) --- */
+@media (max-width: 991px) {
+    /* === Navbar Adjustments === */
+    .navbar .welcome-text { display: none !important; }
+    .navbar .d-flex { align-items: center; justify-content: flex-end; }
+
+    /* === Hero Section Adjustments === */
+    .hero { min-height: 85vh; padding-top: 5rem; }
+    .hero-content { flex-direction: column; gap: 2rem; }
+    .hero-text { text-align: center; max-width: 90%; }
+    .hero-video video { max-width: 400px; }
+    .hero h1 { font-size: 2.5rem; }
+}
+
+
+/* --- MOBILE CHUNG (max-width: 767px) --- */
+@media (max-width: 767px) {
+    /* === General Mobile Adjustments === */
+    body { padding-top: 65px; }
+    .container { padding: 0 15px; }
+    
+    /* === Navbar Adjustments === */
+    .navbar .navbar-brand { font-size: 1.1rem; }
+    .navbar .toggle-dark { font-size: 1rem; }
+    .navbar .btn { padding: 0.3rem 0.8rem; font-size: 0.85rem; }
+
+    /* === Hero Section Adjustments === */
+    .hero { min-height: unset; padding: 4rem 1rem 3rem; }
+    .hero h1 { font-size: 2rem; }
+    .hero p { font-size: 1rem; }
+    .hero-video video { max-width: 90vw; }
+
+    /* === Feature Section (Swiper) Adjustments === */
+    .swiper { padding: 2rem 0; }
+    .swiper-slide { width: 85%; margin-left: 5%; margin-right: 5%; }
+    .feature-card {
+        align-items: center; 
+        text-align: center; 
+        min-height: 380px; /* ✅ FIX 2: Tăng chiều cao lên 380px */
+        padding: 1.5rem;
+    }
+
+    /* === Launch Section Adjustments === */
+    .launch-section { height: 70vh; }
+    .launch-overlay h2 { font-size: 2rem; }
+    .launch-overlay p { font-size: 1rem; }
+}
+
+/* --- MOBILE L & M (max-width: 575px) --- */
+/* Áp dụng cho màn hình từ 401px đến 575px (Tối ưu Mobile L và M) */
+@media (max-width: 575px) {
+    /* === General Adjustments === */
+    .container { padding: 0 10px; } 
+
+    /* === Navbar Adjustments === */
+    .navbar .btn { padding: 0.3rem 0.7rem; font-size: 0.8rem; }
+
+    /* === Hero Section Adjustments === */
+    .hero h1 { font-size: 2.2rem; }
+    .hero p { font-size: 1rem; }
+
+    /* === Feature Section (Swiper) Adjustments === */
+    .swiper-slide { width: 80%; margin-left: 10%; margin-right: 10%; }
+    .feature-card {
+        padding: 1.5rem;
+        min-height: 340px; /* ✅ FIX 3: Chiều cao tối ưu cho Mobile M/L */
+    }
+    .feature-card .icon-wrapper { width: 75px; height: 75px; font-size: 1.8rem; }
+    .feature-card h5 { font-size: 1.1rem; }
+    .feature-card p { font-size: 0.95rem; }
+    
+    /* === Launch Section Adjustments === */
+    .launch-overlay h2 { font-size: 2.2rem; }
+    .launch-overlay p { font-size: 1rem; }
+}
+
+/* --- MOBILE S (max-width: 400px) --- */
+/* Áp dụng cho các điện thoại rất nhỏ (Tối ưu Tràn lề) */
+@media (max-width: 400px) {
+    /* === General Adjustments === */
+    body { padding-top: 55px; }
+    .container { padding: 0 5px; }
+
+    /* === Navbar Adjustments (Khắc phục Tràn Nút) === */
+    .navbar-brand { font-size: 1rem; }
+    .navbar .toggle-dark { font-size: 0.9rem; }
+    .navbar .btn { padding: 0.2rem 0.5rem; font-size: 0.75rem; }
+
+    /* === Hero Section Adjustments === */
+    .hero { padding: 3rem 0.5rem 2rem; }
+    .hero h1 { font-size: 1.6rem; }
+    .hero p { font-size: 0.9rem; }
+
+    /* === Feature Section (Swiper) Adjustments (Khắc phục Lệch/Tràn) === */
+    .swiper { padding: 1.5rem 0; }
+    .swiper-slide { width: 95%; margin-left: 2.5%; margin-right: 2.5%; }
+    .feature-card {
+        padding: 1rem 0.8rem; 
+        min-height: 320px; /* ✅ FIX 4: Chiều cao tối ưu cho Mobile S */
+        justify-content: center;
+        align-items: center; 
+        text-align: center; 
+    }
+    .feature-card .icon-wrapper {
+        width: 65px; 
+        height: 65px;
+        font-size: 1.6rem;
+        margin-bottom: 0.5rem;
+    }
+    .feature-card h5 { font-size: 1rem; margin-top: 0.5rem; }
+    .feature-card p { font-size: 0.85rem; }
+    
+    /* === Launch Section Adjustments === */
+    .launch-section { height: 60vh; }
+    .launch-overlay h2 { font-size: 1.8rem; }
+    .launch-overlay p { font-size: 0.9rem; }
+}

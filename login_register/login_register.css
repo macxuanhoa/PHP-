@@ -1,0 +1,349 @@
+/* === VARIABLES === */
+:root {
+    --primary: #00bfa6;        /* xanh nhạt */
+    --secondary: #1a3e6f;      /* xanh đậm */
+    --accent: #ff7f50;         /* cam nhạt, dễ nhìn */
+    --light-bg: #f5f6fa;
+    --dark-bg: #0d1117;
+    --text-light: #333;
+    --text-dark: #f5f5f5;
+    --radius: 24px;
+    --shadow: 0 8px 32px rgba(0,0,0,0.08);  /* nhẹ hơn */
+    --error-bg: #ffe6e6;       /* đỏ nhạt */
+    --error-color: #b71c1c;
+    --success-bg: #e6f7e6;     /* xanh nhạt, dịu mắt */
+    --success-color: #1b5e20;
+}
+
+/* === BASE === */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background: linear-gradient(135deg, var(--primary), var(--secondary), var(--accent));
+    background-size: 400% 400%;
+    animation: gradientBG 10s ease infinite;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 1rem;
+    overflow: hidden;
+}
+
+@keyframes gradientBG {
+    0%   { background-position: 0% 50%; }
+    50%  { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* === CONTAINER (DESKTOP/TABLET) === */
+.container {
+    background: #ffffffee;  /* hơi mờ, nhẹ nhàng */
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    position: relative;
+    overflow: hidden;
+    width: 850px;
+    max-width: 100%;
+    min-height: 540px;
+    transition: all 0.6s ease-in-out;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* === FORM WRAPPER (DESKTOP/TABLET) === */
+.form-container {
+    position: absolute;
+    top: 0;
+    height: 100%;
+    transition: all 0.6s ease-in-out;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50%;
+}
+
+.form-container form {
+    background-color: #ffffffdd;  /* nhẹ hơn, hòa với nền */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    width: 80%;
+    max-width: 360px;
+    padding: 2rem;
+    border-radius: 20px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.05);
+}
+
+.form-container h1 {
+    color: var(--secondary);
+    font-weight: 700;
+    font-size: 28px;
+    margin-bottom: 1rem;
+}
+
+.form-container input {
+    background: #f1f3f6;
+    border: none;
+    padding: 14px 18px;
+    margin: 8px 0;
+    width: 100%;
+    border-radius: 12px;
+    font-size: 15px;
+    transition: 0.2s ease;
+}
+
+.form-container input:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(0,191,166,0.15);
+}
+
+/* === BUTTONS === */
+button {
+    border-radius: 50px;
+    border: 1px solid var(--primary);
+    background-color: var(--primary);
+    color: #fff;
+    font-size: 13px;
+    font-weight: 600;
+    padding: 12px 45px;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+button:hover {
+    background-color: #00a890;
+    transform: scale(1.03);
+}
+
+button:active {
+    transform: scale(0.96);
+}
+
+button.ghost {
+    background-color: transparent;
+    border: 2px solid #fff;
+    color: #fff;
+    font-weight: 600;
+}
+
+button.ghost:hover {
+    background-color: rgba(255, 255, 255, 0.12);
+}
+
+/* === PANEL STATES (DESKTOP) === */
+.login-container { left: 0; z-index: 2; }
+.register-container { left: 0; opacity: 0; z-index: 1; }
+
+.container.right-panel-active .login-container {
+    transform: translateX(100%);
+    opacity: 0;
+    z-index: 1;
+}
+
+.container.right-panel-active .register-container {
+    transform: translateX(100%);
+    opacity: 1;
+    z-index: 5;
+}
+
+/* === OVERLAY (DESKTOP) === */
+.overlay-container {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 50%;
+    height: 100%;
+    overflow: hidden;
+    transition: transform 0.6s ease-in-out;
+    z-index: 100;
+}
+
+.container.right-panel-active .overlay-container {
+    transform: translateX(-100%);
+}
+
+.overlay {
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    color: #fff;
+    position: relative;
+    left: -100%;
+    height: 100%;
+    width: 200%;
+    display: flex;
+    transition: transform 0.6s ease-in-out;
+    transform: translateX(0);
+}
+
+.container.right-panel-active .overlay {
+    transform: translateX(50%);
+}
+
+.overlay-panel {
+    position: absolute;
+    top: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 0 40px;
+    text-align: center;
+    width: 50%;
+    height: 100%;
+    transition: all 0.6s ease-in-out;
+}
+
+.overlay-panel h1 {
+    font-size: 32px;
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+.overlay-panel p {
+    font-size: 15px;
+    line-height: 1.6;
+    font-weight: 400;
+    max-width: 320px;
+    margin: 15px 0 25px;
+}
+
+.overlay-left { transform: translateX(-20%); }
+.overlay-right { right: 0; transform: translateX(0); }
+
+.container.right-panel-active .overlay-left { transform: translateX(0); }
+.container.right-panel-active .overlay-right { transform: translateX(20%); }
+
+/* === TOAST NHẸ NHÀNG === */
+.toast {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    padding: 12px 20px;
+    border-radius: 10px;
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: #222;
+    background: #ffffffdd; /* nhẹ nhàng, trong suốt */
+    box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+    border: 1px solid rgba(0,0,0,0.05);
+    z-index: 1000;
+    opacity: 0;
+    transform: translateY(10px);
+    animation: toastIn 0.3s ease forwards;
+}
+
+.toast.success {
+    border-left: 4px solid #2ecc71;
+}
+
+.toast.error {
+    border-left: 4px solid #e74c3c;
+}
+
+@keyframes toastIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes toastOut {
+    from { opacity: 1; transform: translateY(0); }
+    to { opacity: 0; transform: translateY(10px); }
+}
+
+.toast.hide {
+    animation: toastOut 0.3s ease forwards;
+}
+
+/* === MOBILE VIEW TOGGLE LINKS === */
+.mobile-toggle {
+    display: none;
+    margin-top: 1.5rem;
+    font-size: 0.95rem;
+    color: var(--secondary);
+    font-weight: 500;
+    text-decoration: none;
+}
+
+.mobile-toggle:hover {
+    text-decoration: underline;
+}
+
+/* ================================================= */
+/* === RESPONSIVE DESIGN: MOBILE BREAKPOINT (<= 768px) === */
+/* Tối ưu hóa lại block 768px để xử lý tốt vấn đề chiều cao và căn chỉnh form */
+/* ================================================= */
+@media (max-width: 768px) {
+    /* --- Body & Container --- */
+    body { 
+        padding: 0; 
+        background: #fff; /* Nền trắng rõ ràng */
+        overflow-y: auto; /* Cho phép cuộn khi form quá cao */
+        align-items: flex-start; /* Bắt đầu căn chỉnh từ trên cùng */
+    }
+
+    .container {
+        width: 100%;
+        min-height: 100vh; /* Quan trọng: Sử dụng min-height để form không bị cắt khi bàn phím ảo mở */
+        height: auto;
+        border-radius: 0;
+        box-shadow: none;
+        display: block;
+        padding: 3rem 1rem; /* Thêm padding trên dưới để form không dính sát mép */
+    }
+    
+    /* --- Forms & Overlay --- */
+    .overlay-container { display: none; }
+
+    .form-container {
+        position: relative;
+        width: 100%;
+        height: auto;
+        min-height: unset;
+        left: 0;
+        opacity: 1;
+        transform: none;
+        padding: 0; 
+    }
+
+    .form-container form {
+        width: 95%; 
+        max-width: 400px;
+        margin: 0 auto; /* Căn giữa form trên màn hình */
+        padding: 2rem 1.5rem; 
+        background-color: #ffffff; /* Nền trắng rõ ràng */
+        box-shadow: 0 4px 20px rgba(0,0,0,0.1); /* Shadow rõ hơn */
+    }
+    
+    .form-container h1 {
+        font-size: 24px;
+    }
+
+    /* Đảm bảo trạng thái chuyển đổi qua JS hoạt động đúng */
+    .login-container, .register-container {
+        position: relative;
+        transition: none;
+    }
+
+    .mobile-toggle { 
+        display: block; 
+        text-align: center;
+        margin-top: 2rem;
+    }
+    
+    /* === Cho Mobile rất nhỏ (dưới 400px) === */
+    @media (max-width: 400px) {
+        .form-container form {
+            width: 100%;
+            padding: 1.5rem 1rem;
+        }
+    }
+}

@@ -1,0 +1,335 @@
+/* admin/assets/css/admin.css (Đã nâng cấp Dark/Light Mode) */
+
+:root {
+    /* (MỚI) Định nghĩa màu cho Light Mode (Mặc định) */
+    --primary-color: #1abc9c;
+    --primary-color-dark: #16a085;
+    --sidebar-bg: #2c3e50;
+    --sidebar-hover: #34495e;
+    --header-bg: rgba(255, 255, 255, 0.85); 
+    --content-bg: #f4f7fa;
+    --box-bg: #ffffff;
+    --text-dark: #333;
+    --text-light: #ecf0f1;
+    --border-color: #e0e0e0;
+    --table-header-bg: #f8f9fa;
+    --table-stripe-bg: #f8f9fa;
+    --shadow-color: rgba(0, 0, 0, 0.06);
+    --shadow-color-hover: rgba(0, 0, 0, 0.08);
+}
+
+/* (MỚI) Ghi đè biến màu khi <html> có class .dark-mode */
+html.dark-mode {
+    --sidebar-bg: #202b38;
+    --sidebar-hover: #2c3e50;
+    --header-bg: rgba(32, 43, 56, 0.85); 
+    --content-bg: #1a202c;
+    --box-bg: #252e3e;
+    --text-dark: #e0e0e0;
+    --text-light: #ecf0f1;
+    --border-color: #34495e;
+    --table-header-bg: #2c3e50;
+    --table-stripe-bg: #232d3b;
+    --shadow-color: rgba(0, 0, 0, 0.2);
+    --shadow-color-hover: rgba(0, 0, 0, 0.3);
+}
+
+/* (MỚI) Reset cơ bản và làm mịn font chữ */
+* { box-sizing: border-box; }
+html, body {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+}
+
+/* (MỚI) Tùy chỉnh thanh cuộn */
+::-webkit-scrollbar { width: 8px; height: 8px; }
+::-webkit-scrollbar-track { background: var(--content-bg); }
+::-webkit-scrollbar-thumb { background: #95a5a6; border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: #7f8c8d; }
+
+body {
+    margin: 0;
+    font-family: 'Inter', sans-serif;
+    background-color: var(--content-bg);
+    color: var(--text-dark);
+    display: grid;
+    grid-template-columns: 240px 1fr;
+    grid-template-rows: 60px 1fr;
+    grid-template-areas:
+        "sidebar header"
+        "sidebar content";
+    height: 100vh;
+    transition: background-color 0.3s ease; 
+}
+
+h1, h2, h3, h4, h5, h6 { margin-top: 0; margin-bottom: 0.75rem; font-weight: 700; }
+h1 { font-size: 2rem; } h2 { font-size: 1.5rem; } h3 { font-size: 1.25rem; }
+p { margin-top: 0; margin-bottom: 1rem; line-height: 1.6; }
+
+/* 1. HEADER (Nâng cấp) */
+.admin-header {
+    grid-area: header;
+    background: var(--header-bg); 
+    padding: 0 1rem 0 2rem; /* (MỚI) Sửa padding */
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid var(--border-color);
+    z-index: 10;
+    position: sticky; 
+    top: 0;
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+}
+
+/* (MỚI) Wrapper cho các nút bên phải */
+.header-controls {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.admin-header {
+    font-weight: 600;
+    display: flex; 
+    align-items: center; 
+    gap: 10px; 
+}
+.user-info::before {
+    content: ''; display: block; width: 32px; height: 32px;
+    border-radius: 50%; background-color: var(--primary-color); opacity: 0.8;
+}
+
+/* (MỚI) Style cho nút Toggle */
+.btn-icon {
+    background: none;
+    border: none;
+    color: var(--text-dark);
+    font-size: 1.2rem;
+    padding: 8px;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+.btn-icon:hover {
+    background-color: var(--border-color);
+}
+/* (MỚI) Ẩn/hiện icon mặt trời/mặt trăng */
+.icon-moon { display: none; }
+html.dark-mode .icon-moon { display: inline-block; }
+html.dark-mode .icon-sun { display: none; }
+
+
+/* 2. SIDEBAR */
+.admin-sidebar {
+    grid-area: sidebar;
+    background: var(--sidebar-bg);
+    color: var(--text-light);
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    z-index: 20;
+    transition: all 0.3s ease; 
+}
+.sidebar-brand {
+    padding: 1rem; font-size: 1.5rem; font-weight: 700;
+    text-align: center; color: var(--primary-color);
+    border-bottom: 1px solid var(--sidebar-hover); letter-spacing: 1.5px;
+}
+.sidebar-nav {
+    list-style: none; padding: 0; margin: 1rem 0; flex-grow: 1; 
+}
+.sidebar-nav li a {
+    display: block; padding: 1rem 1.5rem; color: var(--text-light);
+    text-decoration: none;
+    transition: background 0.2s ease, color 0.2s ease, border-left-color 0.2s ease;
+    border-left: 4px solid transparent;
+}
+.sidebar-nav li a:hover {
+    background: var(--sidebar-hover);
+    border-left-color: var(--primary-color);
+}
+.sidebar-nav li.active a {
+    background: var(--sidebar-hover);
+    color: var(--white); font-weight: 600;
+    border-left-color: var(--primary-color);
+    box-shadow: 0 0 15px rgba(26, 188, 156, 0.2);
+}
+.sidebar-nav li a i { margin-right: 12px; width: 20px; }
+.sidebar-nav hr { border-color: #34495e; margin: 1rem 1.5rem; }
+.sidebar-nav li:nth-last-child(2) a,
+.sidebar-nav li:nth-last-child(1) a { color: #95a5a6; }
+.sidebar-nav li:nth-last-child(2) a:hover {
+    background: var(--sidebar-hover);
+    border-left-color: var(--primary-color); color: var(--white);
+}
+.sidebar-nav li:nth-last-child(1) a:hover {
+    color: var(--white); background: #e74c3c; border-left-color: #c0392b;
+}
+
+/* 3. CONTENT */
+.admin-content {
+    grid-area: content; padding: 2rem; overflow-y: auto;
+    animation: fadeIn 0.5s ease-out;
+}
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(15px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* 4. COMMON STYLES (Box, Table) */
+.content-box {
+    background: var(--box-bg);
+    padding: 1.5rem; border-radius: 8px;
+    box-shadow: 0 4px 15px var(--shadow-color);
+    margin-top: 1.5rem; transition: all 0.3s ease;
+    border: 1px solid var(--border-color);
+}
+.content-box:hover, .stat-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px var(--shadow-color-hover);
+}
+
+.admin-table {
+    width: 100%; border-collapse: collapse;
+    background: var(--box-bg); border-radius: 8px; overflow: hidden;
+}
+.admin-table th, .admin-table td {
+    padding: 14px 18px; text-align: left;
+    border-bottom: 1px solid var(--border-color); 
+}
+.admin-table th {
+    background-color: var(--table-header-bg);
+    font-weight: 700; font-size: 0.85rem;
+    text-transform: uppercase; color: var(--text-dark); 
+}
+.admin-table tr:last-child td { border-bottom: none; }
+.admin-table tbody tr:nth-child(even) { background-color: var(--table-stripe-bg); }
+.admin-table tr:hover {
+    background-color: var(--sidebar-hover) !important; 
+    color: var(--text-light) !important; 
+}
+/* (MỚI) Style cho role trong dark mode */
+html.dark-mode .role-admin { color: #ff6b6b; }
+html.dark-mode .role-student { color: #4dabf7; }
+html.dark-mode .action-links a { color: #4dabf7; }
+html.dark-mode .action-links a.delete { color: #ff6b6b; }
+
+.action-links a {
+    color: #007bff; text-decoration: none;
+    margin-right: 10px; font-weight: 600; 
+}
+.action-links a:hover { text-decoration: underline; }
+.action-links a.delete { color: #dc3545; }
+
+/* 5. FORMS & BUTTONS */
+.btn {
+    display: inline-block; padding: 10px 18px; font-size: 14px;
+    font-weight: 600; text-decoration: none; border-radius: 6px;
+    border: none; cursor: pointer; transition: all 0.2s ease;
+}
+.btn-primary {
+    background-color: var(--primary-color);
+    color: var(--white);
+    box-shadow: 0 4px 10px rgba(26, 188, 156, 0.2); 
+}
+.btn-primary:hover {
+    background-color: var(--primary-color-dark);
+    transform: translateY(-2px); 
+    box-shadow: 0 6px 15px rgba(26, 188, 156, 0.3); 
+}
+
+.page-header {
+    display: flex; justify-content: space-between; align-items: center;
+    margin-bottom: 1rem;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 1rem; 
+}
+
+.form-group { margin-bottom: 1.25rem; }
+.form-group label {
+    display: block; font-weight: 600;
+    margin-bottom: 6px; font-size: 0.9rem; 
+}
+.form-control {
+    width: 100%; padding: 12px 14px; 
+    font-size: 15px; border: 1px solid var(--border-color); 
+    border-radius: 6px; box-sizing: border-box;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease; 
+    background-color: var(--box-bg); 
+    color: var(--text-dark); 
+}
+.form-control:focus {
+    outline: none; border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(26, 188, 156, 0.2);
+}
+textarea.form-control { min-height: 120px; font-family: 'Inter', sans-serif; }
+
+.alert {
+    padding: 1rem; margin-bottom: 1rem;
+    border-radius: 6px; font-weight: 500;
+    border: 1px solid transparent;
+}
+.alert-success { background-color: #d4edda; color: #155724; border-color: #c3e6cb; }
+.alert-danger { background-color: #f8d7da; color: #721c24; border-color: #f5c6cb; }
+/* (MỚI) Style cho alert trong dark mode */
+html.dark-mode .alert-success { background-color: #1c4a2a; color: #c3e6cb; border-color: #2a6f4a; }
+html.dark-mode .alert-danger { background-color: #5a2a2a; color: #f5c6cb; border-color: #8c3a3a; }
+
+/* 6. DASHBOARD */
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem; margin-top: 1.5rem;
+}
+
+.stat-card {
+    background: var(--box-bg); padding: 1.5rem; border-radius: 8px;
+    box-shadow: 0 4px 15px var(--shadow-color);
+    display: flex; justify-content: space-between; align-items: center;
+    transition: all 0.3s ease; 
+    border: 1px solid var(--border-color);
+}
+.stat-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px var(--shadow-color-hover);
+}
+.stat-card-info h3 {
+    margin: 0 0 10px 0; font-size: 1rem;
+    color: #555; font-weight: 600;
+}
+/* (MỚI) Sửa màu chữ H3 trong dark mode */
+html.dark-mode .stat-card-info h3 { color: #aaa; }
+.stat-card-info p {
+    margin: 0; font-size: 2.5rem;
+    font-weight: 700; color: var(--primary-color);
+}
+.stat-card-icon i {
+    font-size: 2.5rem; color: var(--primary-color);
+    opacity: 0.7; transition: all 0.3s ease; 
+}
+.stat-card:hover .stat-card-icon i { opacity: 1; transform: scale(1.1); }
+
+/* 7. RESPONSIVE (Giữ nguyên từ code cũ) */
+.mobile-nav-toggle { display: none; }
+@media (max-width: 768px) {
+    body {
+        grid-template-columns: 1fr;
+        grid-template-areas: "header" "content";
+    }
+    .admin-header { padding: 0 1rem; }
+    .mobile-nav-toggle { display: block; }
+    .admin-header .user-info strong { display: none; }
+    .admin-sidebar {
+        position: fixed; left: -250px; top: 0; width: 250px;
+        box-shadow: 0 0 20px rgba(0,0,0,0.2);
+        transition: left 0.3s ease;
+    }
+    .admin-sidebar.is-open { left: 0; }
+    .admin-content { padding: 1rem; }
+    .page-header { flex-direction: column; align-items: flex-start; gap: 1rem; }
+    h1 { font-size: 1.5rem; } h2 { font-size: 1.25rem; }
+}
