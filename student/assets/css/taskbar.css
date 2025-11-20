@@ -99,12 +99,68 @@
   box-shadow: 0 4px 10px rgba(0, 95, 115, 0.2);
 }
 
-/* === SỬA LỖI 3: Thêm CSS cho nút Theme === */
-.taskbar button#themeBtn .fa-sun { display: none; }
-.taskbar button#themeBtn .fa-moon { display: block; }
-.taskbar button#themeBtn.dark .fa-sun { display: block; }
-.taskbar button#themeBtn.dark .fa-moon { display: none; }
-body.dark-mode .taskbar button#themeBtn i { color: #ffe680; }
+/* === Theme Toggle Button - Enhanced Design === */
+.taskbar button#themeBtn {
+  position: relative;
+  overflow: visible;
+}
+
+.taskbar button#themeBtn i {
+  transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+/* Light mode - show moon */
+.taskbar button#themeBtn .fa-sun { 
+  display: none;
+  opacity: 0;
+  transform: rotate(180deg) scale(0);
+}
+
+.taskbar button#themeBtn .fa-moon { 
+  display: block;
+  opacity: 1;
+  transform: rotate(0deg) scale(1);
+  color: #1e3a5f;
+}
+
+/* Dark mode - show sun with rotation animation */
+.taskbar button#themeBtn.dark .fa-sun { 
+  display: block;
+  opacity: 1;
+  transform: rotate(0deg) scale(1);
+  color: #ffd93d;
+  filter: drop-shadow(0 0 8px rgba(255, 217, 61, 0.6));
+}
+
+.taskbar button#themeBtn.dark .fa-moon { 
+  display: none;
+  opacity: 0;
+  transform: rotate(-180deg) scale(0);
+}
+
+/* Hover effects for theme button */
+.taskbar button#themeBtn:hover i {
+  transform: rotate(15deg) scale(1.2);
+}
+
+.taskbar button#themeBtn.dark:hover i {
+  transform: rotate(-15deg) scale(1.2);
+  filter: drop-shadow(0 0 12px rgba(255, 217, 61, 0.8));
+}
+
+/* Pulse animation for theme button */
+@keyframes theme-pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}
+
+.taskbar button#themeBtn:active {
+  animation: theme-pulse 0.3s ease;
+}
+
+body.dark-mode .taskbar button#themeBtn i { 
+  color: #ffd93d;
+}
 
 
 /* =================================================== */

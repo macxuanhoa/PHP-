@@ -1,11 +1,11 @@
 <?php
-session_start();
+require_once __DIR__ . '/../includes/session_manager.php';
+require_once __DIR__ . '/../includes/config.php';
+
 if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'admin') {
     header('Location: ../login_register/login_register.php');
     exit;
 }
-
-require_once __DIR__ . '/../includes/config.php';
 
 // TODO: 
 

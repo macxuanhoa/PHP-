@@ -1,7 +1,7 @@
 <?php
-session_start();
+require_once __DIR__ . '/../includes/session_manager.php';
 if (!isset($_SESSION['user_id'])) {
-    header("Location: ../login.php");
+    header("Location: ../login_register/login_register.php");
     exit;
 }
 require_once __DIR__ . '/../includes/config.php';
@@ -150,7 +150,8 @@ body {
   margin: 0;
   padding: 0;
   position: relative;
-  transition: background 0.4s, color 0.4s;
+  transition: background 0.5s cubic-bezier(0.4, 0, 0.2, 1), 
+              color 0.5s cubic-bezier(0.4, 0, 0.2, 1);
   overflow-x: hidden;
 }
 
@@ -196,10 +197,15 @@ body.dark-mode {
   height: 120px;
   background: var(--gradient-primary);
   z-index: 0;
+  transition: background 0.5s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 body.dark-mode .profile-header {
-  background: rgba(255,255,255,0.95);
+  background: rgba(25, 30, 40, 0.95);
+}
+
+body.dark-mode .profile-header::before {
+  background: linear-gradient(135deg, #00a896 0%, #1a2f4f 100%);
 }
 
 .profile-header-content {
@@ -426,7 +432,7 @@ body.dark-mode .preview-info p {
   border-radius: var(--radius);
   padding: 2rem;
   box-shadow: var(--shadow);
-  transition: all 0.3s ease;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   position: relative;
   overflow: hidden;
   backdrop-filter: blur(10px);
@@ -434,12 +440,19 @@ body.dark-mode .preview-info p {
 }
 
 body.dark-mode .form-card {
-  background: rgba(255,255,255,0.95);
+  background: rgba(30, 35, 45, 0.95);
+  border: 1px solid rgba(255,255,255,0.08);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.5);
 }
 
 .form-card:hover {
   transform: translateY(-5px);
   box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+}
+
+body.dark-mode .form-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 25px 50px rgba(0,0,0,0.7);
 }
 
 .form-card-header {
@@ -476,20 +489,23 @@ body.dark-mode .form-card {
   font-weight: 600;
   color: var(--accent-b);
   margin: 0;
+  transition: color 0.3s ease;
 }
 
 body.dark-mode .form-card-title {
-  color: var(--accent-a);
+  color: #00e5cc;
+  text-shadow: 0 0 10px rgba(0, 229, 204, 0.3);
 }
 
 .form-card-description {
   color: var(--muted);
   margin: 0.5rem 0 0 0;
   font-size: 0.95rem;
+  transition: color 0.3s ease;
 }
 
 body.dark-mode .form-card-description {
-  color: var(--muted);
+  color: rgba(255, 255, 255, 0.6);
 }
 
 /* Form Elements */
@@ -515,7 +531,7 @@ body.dark-mode .form-label {
   border: 2px solid var(--border-color);
   border-radius: 8px;
   font-size: 1rem;
-  transition: all 0.3s ease;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   background: var(--card);
   color: var(--text);
 }
@@ -524,17 +540,20 @@ body.dark-mode .form-label {
   outline: none;
   border-color: var(--accent-a);
   box-shadow: 0 0 0 3px rgba(0, 191, 178, 0.1);
+  transform: translateY(-1px);
 }
 
 body.dark-mode .form-control {
-  background: rgba(255,255,255,0.05);
-  color: var(--text);
-  border-color: rgba(255,255,255,0.1);
+  background: rgba(20, 25, 35, 0.6);
+  color: rgba(255, 255, 255, 0.9);
+  border-color: rgba(255,255,255,0.15);
 }
 
 body.dark-mode .form-control:focus {
-  border-color: var(--accent-a);
-  background: rgba(255,255,255,0.08);
+  border-color: #00e5cc;
+  background: rgba(30, 35, 45, 0.8);
+  box-shadow: 0 0 0 3px rgba(0, 229, 204, 0.2);
+  transform: translateY(-1px);
 }
 
 /* Buttons */

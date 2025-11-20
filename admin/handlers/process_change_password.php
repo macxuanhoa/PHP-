@@ -1,5 +1,5 @@
 <?php
-session_start();
+require_once __DIR__ . '/../../includes/session_manager.php';
 require_once __DIR__ . '/../../includes/config.php'; // Note: path ../../
 
 // 1. Check if user is logged in and is an admin

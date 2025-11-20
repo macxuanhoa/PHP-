@@ -1,7 +1,7 @@
 <?php
 // Include session and configuration
 require_once __DIR__ . '/../includes/config.php';
-session_start();
+require_once __DIR__ . '/../includes/session_manager.php';
 
 // Check if user is logged in
 if (!isset($_SESSION['user_id'])) {

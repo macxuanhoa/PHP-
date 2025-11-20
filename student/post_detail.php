@@ -1,10 +1,10 @@
 <?php
-session_start();
+require_once __DIR__ . '/../includes/session_manager.php';
 require_once __DIR__ . '/../includes/config.php';
 
 // --- 1. CHECK LOGIN AND POST ID ---
 if (!isset($_SESSION['user_id'])) {
-  header("Location: ../login.php");
+  header("Location: ../login_register/login_register.php");
   exit;
 }
 $current_user_id = $_SESSION['user_id'];
