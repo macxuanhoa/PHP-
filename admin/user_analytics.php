@@ -20,7 +20,6 @@ $userStatsQuery = "
         COUNT(DISTINCT pl2.post_id) as total_likes_received,
         COUNT(DISTINCT c.id) as total_comments,
         COUNT(DISTINCT c2.id) as total_comments_received,
-        COALESCE(SUM(p.views), 0) as total_views,
         CASE 
             WHEN COUNT(DISTINCT p.id) > 0 THEN 
                 ROUND(
@@ -684,7 +683,6 @@ $monthlyActivity = $pdo->query("
                             <th>Comments</th>
                             <th>Comments Received</th>
                             <th>Engagement Rate</th>
-                            <th>Views</th>
                             <th>Joined</th>
                         </tr>
                     </thead>
@@ -729,7 +727,6 @@ $monthlyActivity = $pdo->query("
                                         <div class="engagement-fill" style="width: <?= min($user['engagement_rate'], 100) ?>%"></div>
                                     </div>
                                 </td>
-                                <td><?= number_format($user['total_views']) ?></td>
                                 <td><?= date('M d, Y', strtotime($user['user_created_at'])) ?></td>
                             </tr>
                         <?php endforeach; ?>
